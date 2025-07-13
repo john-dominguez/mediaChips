@@ -59,12 +59,7 @@
 
     <v-divider vertical></v-divider>
 
-    <v-tooltip v-if="!reg" top>
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" @click="openRegistration" height="20" small color="error"> Not registered </v-btn>
-      </template>
-      <span>Register the application and get all the features</span>
-    </v-tooltip>
+    <!-- Registration status removed -->
 
     <v-divider vertical></v-divider>
 
@@ -92,6 +87,18 @@
       </div>
     </v-tooltip>
     
+    <v-divider vertical></v-divider>
+
+    <!-- Privacy Status Indicator -->
+    <v-tooltip v-if="$store.state.Settings.allowInternetFeatures" top>
+      <template v-slot:activator="{ on }">
+        <div v-on="on" @click="openPrivacySettings" class="d-flex align-center pr-2 clickable">
+          <v-icon size="18" color="orange">mdi-earth</v-icon>
+        </div>
+      </template>
+      <span>Internet features are enabled. Click to review privacy settings.</span>
+    </v-tooltip>
+
     <v-divider vertical></v-divider>
 
     <v-menu
@@ -226,7 +233,8 @@ export default {
       this.$store.dispatch('clearAllNotifications')
       this.notificationsMenu = false
     },
-    openRegistration() { this.$router.push('/settings/?tab=about') }
+    openRegistration() { this.$router.push('/settings/?tab=about') },
+    openPrivacySettings() { this.$router.push('/settings/?tab=privacy-settings') }
   },
   watch: {
     lastLog(log) {
@@ -270,6 +278,12 @@ export default {
     right: 0;
     margin: auto;
     text-align: center;
+  }
+}
+.clickable {
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
   }
 }
 </style>

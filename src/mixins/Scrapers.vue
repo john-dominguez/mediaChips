@@ -18,6 +18,11 @@ export default {
   },
   methods: {
     findMeta(scraper) {
+      // Check privacy settings before making network requests
+      if (!this.$store.state.Settings.allowMetadataScrapers) {
+        this.$store.dispatch('setNotification', {type: 'warning', text: 'Metadata scraping is disabled in privacy settings'})
+        return
+      }
       this.searchInProgress = true
       this.showFindError = false
       this.resultFromFreeones = scraper == 'freeonce'
@@ -65,6 +70,11 @@ export default {
       })
     },
     getInfo(meta, scraper, name) {
+      // Check privacy settings before making network requests
+      if (!this.$store.state.Settings.allowMetadataScrapers) {
+        this.$store.dispatch('setNotification', {type: 'warning', text: 'Metadata scraping is disabled in privacy settings'})
+        return
+      }
       this.searchInProgress = true
       let query = ''
       if (scraper == 'freeonce') query = `https://www.freeones.com/${meta}/bio`

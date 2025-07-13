@@ -183,7 +183,7 @@ export default {
       await this.initSystemInfo()
       if (this.checkIsMigrationNeeded()) return
       // this.initPlugins()
-      if (this.$store.state.Settings.checkForUpdatesAtStartup) this.checkForUpdates()
+      if (this.$store.state.Settings.checkForUpdatesAtStartup && this.$store.state.Settings.allowUpdateChecking) this.checkForUpdates()
       this.$router.push({ path: '/home', query: { name: 'Home' } })
       this.runAutoUpdateDataFromVideos()
       if (this.$store.state.Settings.updateDataFromVideosOnStart) this.updateDataFromVideos()
@@ -416,6 +416,11 @@ export default {
       this.disableRunApp = this.phrase !== this.password 
     },
     checkForUpdates() {
+      // Check privacy settings before making network requests
+      if (!this.$store.state.Settings.allowUpdateChecking) {
+        this.$store.commit('addLog', { text: 'Update checking is disabled in privacy settings', type: 'info' })
+        return
+      }
       axios.get(`https://github.com/fupdec/MediaChips/releases`).then((response) => {
         if (response.status === 200) {
           const html = response.data

@@ -134,6 +134,11 @@ export default {
   },
   methods: {
     async start() {
+      // Check privacy settings before making network requests
+      if (!this.$store.state.Settings.allowMetadataScrapers) {
+        this.$store.dispatch('setNotification', {type: 'warning', text: 'Metadata scraping is disabled in privacy settings'})
+        return
+      }
       this.$refs.form.validate()
       if (!this.valid) return
       this.isProcessRunning = true

@@ -8,7 +8,7 @@
         @mousedown="handleMouseCanvas($event)" @contextmenu="showContextMenu($event)"
         @wheel="changeVolume" @keydown="handleKey" tabindex="-1">
         <video ref="videoPlayer" class="video-player"></video>
-        <div v-if="isVideoFormatNotSupported && reg" class="video-error">
+        <div v-if="isVideoFormatNotSupported" class="video-error">
           <v-icon size="60" color="red">mdi-alert</v-icon>
           <div>{{getFileFromPath(videos[playIndex].path)}}</div>
           <div class="mb-4">Video format not supported.</div>
@@ -17,10 +17,7 @@
             <span>Play in the system player</span>
           </v-btn>
         </div>
-        <div v-if="!reg && playIndex>4" class="reg-block">
-          <div class="mb-2">Application not registered</div>
-          <div class="caption">In the unregistered version, you can only play the first 5 videos of the playlist.</div>
-        </div>
+        <!-- Registration block removed -->
         <div v-if="isVideoNotExist" class="video-error">
           <v-icon size="60" color="red">mdi-alert</v-icon>
           <div>{{getFileFromPath(videos[playIndex].path)}}</div>
@@ -241,7 +238,7 @@
                   <b>{{i+1}}.</b>
                   <span class="path">{{getFileNameFromPath(video.path)}}</span>
                 </span>
-                <div v-if="!reg && i>4" class="reg-playlist">App not registered</div>
+                <!-- Registration playlist block removed -->
                 <span v-if="playIndex===i" class="play-state overline text--primary">
                   <v-icon class="pl-2 pr-1">mdi-play</v-icon>
                   <span class="pr-4 text">Now playing</span>
@@ -588,7 +585,8 @@ export default {
       this.duration = this.player.duration
       this.trackCurrentTime()
       this.getMarkers()
-      if (!this.reg && this.playIndex>4) this.player.src = ''
+      // Registration limitation removed
+      // if (!this.reg && this.playIndex>4) this.player.src = ''
     },
     moveOverPlayer(e) {
       if (!e.movementX > 0 || !e.movementY > 0) return

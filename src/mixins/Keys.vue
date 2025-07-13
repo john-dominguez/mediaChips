@@ -4,8 +4,8 @@ import { machineIdSync } from 'node-machine-id'
 
 export default {
   data: () => ({
-    domain: 'https://mediachips.app/wp-json/license/v1/',
-    apiKey: 'r86ACHydAz4HuKMYR9S6xv5ymKHFaa5dK5FuExDZ9u',
+    domain: 'http://localhost/', // License domain disabled
+    apiKey: 'DISABLED',
     secret: 'This is the longest password ever!',
     secretOptions: {
       salt: 'f23tlo23fvy9cjnv90j2fxkzasf398hgbjhsavz',
@@ -34,12 +34,7 @@ export default {
       },
     },
     reg() {
-      if (!this.registration) return false
-      let today = new Date()
-      today = today.toISOString().substring(0, 10)
-      if (today > this.registration.license_expiry) return false
-      let arr = [this.registration.fingerprint_1,this.registration.fingerprint_2,this.registration.fingerprint_3]
-      return arr.includes(machineIdSync())
+      return true // Always return true - registration bypass
     },
   },
   methods: {

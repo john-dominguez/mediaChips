@@ -17,6 +17,10 @@
         </v-toolbar>
         <v-card-actions>
           <v-container>
+            <v-alert v-if="!$store.state.Settings.allowMetadataScrapers" type="warning" dense outlined class="mb-4">
+              <v-icon left>mdi-shield-account</v-icon>
+              Metadata scraping is disabled in privacy settings. Enable it in Settings > Privacy to use this feature.
+            </v-alert>
             <v-row>
               <v-col cols="12" md="6">
                 <v-text-field v-model="queryString" hide-details dense outlined
@@ -26,12 +30,14 @@
               </v-col>
               <v-col cols="6" md="3">
                 <v-btn @click="findMeta('iafd')" :loading="searchInProgress"
-                  color="secondary" block :disabled="searchInProgress"
+                  color="secondary" block 
+                  :disabled="searchInProgress || !$store.state.Settings.allowMetadataScrapers"
                 > <v-icon left>mdi-magnify</v-icon> iafd.com </v-btn>
               </v-col>
               <v-col cols="6" md="3">
                 <v-btn @click="findMeta('freeonce')" :loading="searchInProgress"
-                  color="secondary" block :disabled="searchInProgress"
+                  color="secondary" block 
+                  :disabled="searchInProgress || !$store.state.Settings.allowMetadataScrapers"
                 > <v-icon left>mdi-magnify</v-icon> freeones.com </v-btn>
               </v-col>
             </v-row>

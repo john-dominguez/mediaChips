@@ -69,6 +69,11 @@ export default {
   },
   methods: {
     async tryConnect() {
+      // Check privacy settings before making network requests
+      if (!this.$store.state.Settings.allowMetadataScrapers) {
+        this.$store.dispatch('setNotification', {type: 'warning', text: 'Metadata scraping is disabled in privacy settings'})
+        return
+      }
       this.isProcessRunning = true
       let ids = this.$store.state.Meta.selectedMeta
       for (const id of ids) {

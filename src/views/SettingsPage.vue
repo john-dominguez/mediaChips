@@ -491,6 +491,8 @@
               </v-col>
             </v-row>
           </v-card>
+          
+          <Privacy />
         </v-card>
       </v-tab-item>
       <v-tab-item value="database-settings"> 
@@ -537,16 +539,24 @@
           </v-card>
           <v-card outlined class="pa-4 mb-10">
             <div class="headline text-center pb-4">Updates</div>
+            <v-alert v-if="!$store.state.Settings.allowUpdateChecking" type="info" dense outlined class="mb-4">
+              <v-icon left>mdi-shield-check</v-icon>
+              Update checking is disabled in privacy settings for your protection.
+            </v-alert>
             <v-row>
               <v-col cols="12" sm="6">
                 <div class="d-flex align-center justify-center mt-2">
                   <div class="mr-6">Check for updates at startup:</div>
-                  <v-switch v-model="checkForUpdatesAtStartup" class="mt-0 pt-0 d-inline-flex"  
+                  <v-switch v-model="checkForUpdatesAtStartup" 
+                    :disabled="!$store.state.Settings.allowUpdateChecking"
+                    class="mt-0 pt-0 d-inline-flex"  
                     :label="checkForUpdatesAtStartup?'Yes':'No'" inset hide-details/>
                 </div>
               </v-col>
               <v-col cols="12" sm="6" align="center">
-                <v-btn v-if="!updateApp" @click="checkForUpdates" :loading="isCheckingUpdate" color="primary" rounded>
+                <v-btn v-if="!updateApp" @click="checkForUpdates" 
+                  :disabled="!$store.state.Settings.allowUpdateChecking"
+                  :loading="isCheckingUpdate" color="primary" rounded>
                   <v-icon left>mdi-update</v-icon> Check for updates manually</v-btn>
               </v-col>
               <v-col cols="12" v-if="updateApp" class="text-center">
@@ -580,6 +590,7 @@ import MetaAssignedToVideos from '@/components/pages/meta/MetaAssignedToVideos.v
 import ThemeColors from '@/components/pages/settings/ThemeColors.vue'
 import ClearData from '@/components/pages/settings/ClearData.vue'
 import Registration from '@/components/pages/settings/Registration.vue'
+import Privacy from '@/components/pages/settings/Privacy.vue'
 import vuescroll from 'vuescroll'
 import { async } from 'node-stream-zip'
 
@@ -596,6 +607,7 @@ export default {
     ClearData,
     vuescroll,
     Registration,
+    Privacy,
     About: () => import('@/components/app/About.vue'),
     DialogAddMetaCardsTemplate: () => import("@/components/pages/meta/DialogAddMetaCardsTemplate.vue"),
   },

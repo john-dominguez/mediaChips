@@ -69,6 +69,10 @@ dbs.defaults({
   folders: [],
   zoom: 1,
   checkForUpdatesAtStartup: true,
+  // Privacy settings - internet features disabled by default for user privacy
+  allowInternetFeatures: false,
+  allowUpdateChecking: false,
+  allowMetadataScrapers: false,
   registration: '',
   colorScroll: false,
   tabBorders: true,
@@ -80,6 +84,10 @@ dbs.defaults({
   showExperimentalFeatures: false,
   showSavedFilters: true,
   databaseVersion: app.getVersion(),
+  // Privacy settings - internet features disabled by default for user privacy
+  allowInternetFeatures: false,
+  allowUpdateChecking: false,
+  allowMetadataScrapers: false,
   widgets: {}
 }).write()
 
@@ -149,6 +157,10 @@ const Settings = {
     folders: dbs.get('folders').value(),
     zoom: dbs.get('zoom').value(),
     checkForUpdatesAtStartup: dbs.get('checkForUpdatesAtStartup').value(),
+    // Privacy settings - internet features disabled by default
+    allowInternetFeatures: dbs.get('allowInternetFeatures').value(),
+    allowUpdateChecking: dbs.get('allowUpdateChecking').value(),
+    allowMetadataScrapers: dbs.get('allowMetadataScrapers').value(),
     registration: dbs.get('registration').value(),
     colorScroll: dbs.get('colorScroll').value(),
     tabBorders: dbs.get('tabBorders').value(),

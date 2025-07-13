@@ -1,31 +1,12 @@
 <template>
   <div>
-    <div class="headline text-h5 text-center pb-4">Application registration</div>
-    <v-row>
-      <v-col cols="12" sm="6" align="center">
-        <v-btn @click="openDialog" color="primary" rounded>
-          <v-icon left>mdi-key-variant</v-icon> Register with a license key </v-btn>
-      </v-col>
-      <v-col cols="12" sm="6" align="center">
-        <v-btn v-if="registration.license_type!=='Lifetime'" @click="openLink('https://mediachips.app/')" rounded color="primary" class="mb-2">
-          <v-icon left>mdi-key</v-icon> Buy lifetime license key </v-btn>
-        <v-btn v-if="registration.license_type!=='Month'" @click="openLink('https://patreon.com/mediachips')" rounded color="#ff424d">
-          <v-icon left>mdi-patreon</v-icon> {{registration.license_type!=='Lifetime'?'Subscribe monthly':'Support development'}} </v-btn>
-      </v-col>
-    </v-row>
-    <div v-if="registration" class="mt-4">
-      <div>License key: <span class="user-select">{{registration.license_code || '??'}}</span></div>
-      <div class="d-flex justify-space-between">
-        <span>
-          <div>Expiration date: {{registration.license_expiry || '??'}}</div>
-          <v-btn v-if="reg" @click="deactivateKey" color="red" small rounded dark class="mt-2"> 
-            <v-icon left>mdi-cancel</v-icon> Deactivate key </v-btn>
-        </span>
-        <v-chip :color="reg?'green':'red'" outlined label> 
-          <span>Application {{reg?'registered':'not registered'}}</span>
-        </v-chip>
-      </div>
+    <div class="headline text-h5 text-center pb-4">Application registration bypassed</div>
+    <div class="text-center">
+      <v-alert type="success" dense outlined>
+        All registration limitations have been removed. The application is now fully functional without license restrictions.
+      </v-alert>
     </div>
+    <!-- License information removed - registration bypassed -->
     
     <v-dialog v-model="dialogRegistration" scrollable persistent max-width="650" overlay-opacity="0.8">
       <v-stepper v-model="registrationSteps">
