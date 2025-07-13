@@ -13,8 +13,10 @@
   "repository": "github:fupdec/MediaChips",
   "scripts": {
     "electron:build": "vue-cli-service electron:build",
+    "electron:build:legacy": "node --openssl-legacy-provider node_modules/@vue/cli-service/bin/vue-cli-service.js electron:build",
     "electron:build_portable": "vue-cli-service electron:build --win portable",
-    "electron:serve": "vue-cli-service electron:serve"
+    "electron:serve": "vue-cli-service electron:serve",
+    "electron:serve:legacy": "node --openssl-legacy-provider node_modules/@vue/cli-service/bin/vue-cli-service.js electron:serve"
   },
   "main": "background.js",
   "dependencies": {
@@ -34,6 +36,7 @@
     "filepond-plugin-file-validate-type": "^1.2.5",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^9.1.0",
+    "istextorbinary": "^9.5.0",
     "jimp": "^0.16.1",
     "lowdb": "^1.0.0",
     "mv": "^2.1.1",
